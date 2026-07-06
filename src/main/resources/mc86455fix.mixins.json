@@ -1,0 +1,13 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "cc.akio.mc86455fix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [],
+    "client": [
+        "PickBlockMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

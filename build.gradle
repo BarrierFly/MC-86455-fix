@@ -1,0 +1,45 @@
+// Root build script — declares plugin versions, configures all subprojects
+plugins {
+    id 'fabric-loom' version '1.7.4' apply false
+}
+
+subprojects {
+    apply plugin: 'fabric-loom'
+
+    group = project.group
+    archivesBaseName = "mc86455-fix-${project.minecraft_version}"
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${project.minecraft_version}"
+        mappings loom.officialMojangMappings()
+        modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    }
+
+    // Ensure correct Java bytecode target for each Minecraft version:
+    //   1.17.x → Java 16    1.18–1.20.4 → Java 17    1.20.5+ → Java 21
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release = project.java_release as int
+    }
+
+    processResources {
+        inputs.property('version', project.version)
+        inputs.property('minecraft_version', project.minecraft_version)
+        inputs.property('loader_version', project.loader_version)
+
+        filesMatching('fabric.mod.json') {
+            expand([
+                'version'           : project.version,
+                'minecraft_version' : project.minecraft_version,
+                'loader_version'    : project.loader_version
+            ])
+        }
+    }
+}
