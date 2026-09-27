@@ -6,7 +6,7 @@
     "description": "Fixes MC-86455: Creative mode pick block inventory desync between client and server.",
     "authors": ["Akio"],
     "contact": {
-        "sources": "https://github.com/akio/mc86455-fix"
+        "sources": "https://github.com/BarrierFly/MC-86455-fix"
     },
     "license": "WTFPL",
     "environment": "client",
